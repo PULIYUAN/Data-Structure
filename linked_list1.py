@@ -81,6 +81,12 @@ class Linked_List:
     def remove(self, position):
         """
         删除指定索引的链表元素
+        流程如下：
+        1、先判断要删除的元素索引是否存在，如果不存在抛出错误
+        2、接着判断当存在链表元素时才能执行删除操作。
+        3、当要删除的是头结点时（即索引为 0），做特殊情况处理。
+        4、其他情况时，通过循环找到要删除的结点。
+        5、最后要做的就是把这个结点删除掉。
         """
         if position < 0 or position > self.get_length()-1:
             # print("insert error")

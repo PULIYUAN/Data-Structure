@@ -8,7 +8,7 @@ class Node:
 class Linked_List:
     def __init__(self, head=None):
         self.head = head #链表头部元素
-
+        
     def append(self, new_element):
         """
         在链表后面增加一个元素
@@ -67,13 +67,42 @@ class Linked_List:
         # new_element.next = temp
         pre.next, new_element.next = new_element, temp
 
-   def swapnodes(self, position1, position2):
-        #交换单链表里两个链点
-        if position1 < 0 or position1 > self.get_length():
-            raise IndexError('insert 插入时,key 的值超出了范围')
-        if position2 < 0 or position2 > self.get_length():
-            raise IndexError('insert 插入时,key 的值超出了范围')
-        temp = self.head
+    def swap_nodes(self, d1, d2):   #没看懂
+        prevD1 = None
+        prevD2 = None
+        if d1 == d2:
+            return 
+        else:
+            #先找到d1 d2
+            D1 = self.head
+            while D1 is not None and D1.data != d1:   #注意 is not和！=的区别
+                prevD1 = D1
+                D1 = D1.next
+            D2 = self.head
+            while D2 is not None and D2.data != d2:   #注意 is not和！=的区别
+                prevD2 = D2
+                D2 = D2.next
+            #遍历后，D1.data = d1，D2.data = d2
+            if D1 is None and D2 is None:      #找不到节点的情况
+                return
+            #换位
+            if prevD1 is not None:
+                prevD1.next = D2
+            else:
+                self.head = D2
+            if prevD2 is not None:
+                prevD2.next = D1
+            else:
+                self.head = D1
+            #交换
+            #错误示例
+            # temp = D1.data
+            # D1.data = D2.data
+            # D2.data = temp
+            temp = D1.next
+            D1.next = D2.next
+            D2.next = temp
+
 
     def print_list(self):
         """
@@ -130,9 +159,9 @@ class Linked_List:
         self.head = prev
 
     def initlist(self, data_list):
-        “”“
+        '''
         将列表转换为链表
-        ”“”
+        '''
         # 创建头结点
         self.head = Node(data_list[0])
         temp = self.head
@@ -144,5 +173,15 @@ class Linked_List:
    
 
 if __name__ == '__main__':
+    list1 = [1,2,3,4,5]
+    linked_list = Linked_List()
+    linked_list.initlist(list1)
+    linked_list.print_list()
+    d1 = input("Input d1:\n")
+    d2 = input("Input d2:\n")
+    print(int(d1),int(d2))
+    linked_list.swap_nodes(int(d1),int(d2))
+    print("After swapping:")
+    linked_list.print_list()
 
 
